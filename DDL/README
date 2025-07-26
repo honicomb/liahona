@@ -1,0 +1,8 @@
+This directory holds the DDL used to create the below data models in MySQL. These databases will hold the data displayed in the Liahona application.
+
+A. Tasks
+B. Reference
+C. Workout
+D. Health
+E. Tracking
+F. Journal
