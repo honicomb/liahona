@@ -1,0 +1,40 @@
+/************* NAVIGATION BAR & SPLASH PAGE**************/
+
+.topNavigationHBox {
+    -fx-pref-height: 50px;
+}
+
+.topNavigationButton {
+    -fx-pref-width: 127px;
+    -fx-min-height: 50px;
+    -fx-font-size: 12pt;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #003A64;
+    -fx-background-color: #C0D6DF;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #8FA1AC;
+    -fx-border-width: 1px;
+}
+
+.topNavigationButton:hover {
+    -fx-background-color: #A5BEC6;
+}
+
+.topNavigationButton:pressed {
+    -fx-text-fill: #FFFFFF;
+}
+
+.background {
+    -fx-background-color: #E0EBF0;
+}
+
+.screenTitleText {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Verdana";
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-text-fill: #002F52;
+    -fx-alignment: center;
+}

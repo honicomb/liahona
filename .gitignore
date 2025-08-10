@@ -36,3 +36,9 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Files specific to my instance ###
+../*.xlsx
+../*.pdf
+../*.docx
+../*.bmpr

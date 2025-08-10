@@ -1,0 +1,59 @@
+.valueNameBtn {
+    -fx-pref-width: 190px;
+    -fx-min-height: 60px;
+    -fx-font-size: 12pt;
+    -fx-font-weight: bold;
+    -fx-font-family: "Bodoni MT";
+    -fx-text-fill: BLACK;
+    -fx-background-color: #CCE0EB;
+    -fx-background-radius: 7;
+    -fx-border-radius: 7;
+    -fx-border-color: #6D7E89;
+    -fx-border-width: 2px;
+    -fx-padding: 6px;
+    -fx-text-alignment: center;
+}
+
+.valueNameBtn:hover {
+    -fx-text-fill: WHITE;
+    -fx-background-color: #6692AC;
+}
+
+.valueNameBtn:pressed {
+    -fx-background-color: WHITE;
+}
+
+.valueVBox {
+    -fx-border-color: #4A4A4A;
+    -fx-border-width: 2px;
+    -fx-padding: 15px;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-background-color: WHITE;
+}
+
+.valueTitleText {
+    -fx-pref-width: 716;
+    -fx-font-size: 24px;
+    -fx-alignment: center;
+    -fx-font-family: "Bodoni MT";
+    -fx-text-fill: BLACK;
+}
+
+.valueWhyHowTitles {
+    -fx-font-size: 18px;
+    -fx-font-family: "Bodoni MT";
+    -fx-text-fill: BLACK;
+    -fx-padding: 20 0 5 0;
+    -fx-font-weight: bold;
+    -fx-background-color: WHITE;
+}
+
+.valueTextAreaAndText {
+    -fx-font-size: 15px;
+    -fx-font-family: Century;
+    -fx-padding: 0 0 0 5;
+    -fx-background-color: WHITE;
+}
+
+
