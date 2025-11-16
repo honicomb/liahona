@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane prefHeight="670.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.whitcomb.liahona.controllers.tracking.CarMaintenanceController">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="2.0" />
+        <ColumnConstraints percentWidth="13.0" />
+        <ColumnConstraints percentWidth="2.0" />
+        <ColumnConstraints percentWidth="47.0" />
+        <ColumnConstraints percentWidth="11.0" />
+        <ColumnConstraints percentWidth="11.0" />
+        <ColumnConstraints percentWidth="11.0" />
+        <ColumnConstraints percentWidth="3.0" />
+      <ColumnConstraints />
+      <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="4.0" percentHeight="4.0" />
+        <RowConstraints minHeight="4.0" percentHeight="11.0" />
+        <RowConstraints minHeight="4.0" percentHeight="11.0" />
+        <RowConstraints minHeight="4.0" percentHeight="11.0" />
+        <RowConstraints minHeight="4.0" percentHeight="11.0" />
+        <RowConstraints minHeight="4.0" percentHeight="11.0" />
+        <RowConstraints minHeight="4.0" percentHeight="11.0" />
+        <RowConstraints minHeight="4.0" percentHeight="16.0" />
+        <RowConstraints minHeight="4.0" percentHeight="14.0" />
+    </rowConstraints>
+    <stylesheets>
+        <URL value="@../../universal/css/universal_styles.css" />
+        <URL value="@../css/carMaintenance.css" />
+    </stylesheets>
+    <Button mnemonicParsing="false" styleClass="sideNavButtons" text=" Car Maint" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../images/carMaintIcon.png" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button mnemonicParsing="false" styleClass="sideNavButtons" text=" Reading" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../images/readingIcon.png" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button mnemonicParsing="false" prefWidth="155.0" styleClass="sideNavButtons" stylesheets="@../css/carMaintenance.css" text=" Time Track" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../images/timeTrackingIcon.png" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <Label styleClass="screenTitleText" text="Car Maintenance Log" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+    <TableView fx:id="carMaintenanceTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="6" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+      <columns>
+          <TableColumn fx:id="dateTableCol" prefWidth="102.66670227050781" text="Date" />
+          <TableColumn fx:id="vehicleTableCol" prefWidth="83.99993896484375" text="Vehicle" />
+          <TableColumn fx:id="serviceTableCol" prefWidth="280.6665954589844" text="Service" />
+          <TableColumn fx:id="mileageTableCol" prefWidth="83.33343505859375" text="Mileage" />
+          <TableColumn fx:id="typeTableCol" prefWidth="115.3333740234375" text="Type" />
+          <TableColumn fx:id="costTableCol" prefWidth="98.0" text="Cost" />
+          <TableColumn fx:id="providerTableCol" prefWidth="256.66680908203125" text="Performed by" />
+      </columns>
+      <styleClass>
+         <String fx:value="dataTable" />
+         <String fx:value="tableViewPlacement" />
+      </styleClass>
+    </TableView>
+   <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="2" GridPane.rowSpan="8" />
+    <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+        <Label styleClass="filterCriteriaLabels" text="Begin date" />
+        <DatePicker fx:id="beginDatePicker" prefHeight="25.0" prefWidth="125.0" promptText="Choose date" styleClass="datePicker" />
+    </VBox>
+    <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+        <Label styleClass="filterCriteriaLabels" text="End date" />
+        <DatePicker fx:id="endDatePicker" prefHeight="25.0" prefWidth="125.0" promptText="Choose date" styleClass="datePicker" />
+    </VBox>
+    <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+        <Label styleClass="filterCriteriaLabels" text="Vehicle" />
+        <ComboBox fx:id="vehicleComboBox" prefWidth="125.0" promptText="Select vehicle" styleClass="vehicleSelector" />
+    </VBox>
+   <Button fx:id="addMaintenanceButton" mnemonicParsing="false" styleClass="addMaintenanceButton" text=" Add Maintenance" GridPane.columnIndex="3" GridPane.rowIndex="8">
+      <graphic>
+          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+              <Image url="@../images/addMaintenance.png" />
+          </ImageView>
+      </graphic>
+   </Button>
+   <Button fx:id="clearFiltersButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="131.0" styleClass="clearFiltersButton" text=" Clear Filters" GridPane.columnIndex="6" GridPane.rowIndex="8">
+      <graphic>
+         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../universal/images/clearFilters.png" />
+            </image>
+         </ImageView>
+      </graphic>
+   </Button>
+</GridPane>

@@ -1,0 +1,18 @@
+.centeredHbox {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 15 0 0 0;
+}
+
+.hboxWithButtons {
+    -fx-alignment: CENTER;
+    -fx-padding: 25 0 0 0;
+    -fx-spacing: 15;
+}
+
+#lowerSeparator {
+    -fx-padding: 10 0 0 0;
+}
+
+#milestoneIDLabel {
+    -fx-opacity: .7;
+}

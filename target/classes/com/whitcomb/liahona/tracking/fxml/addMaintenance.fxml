@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<DialogPane prefHeight="470.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.whitcomb.liahona.controllers.tracking.AddMaintenanceController">
+   <header>
+      <Label fx:id="dialogTitle" prefWidth="650.0" styleClass="dialogPaneTitle" text="Add maintenance" />
+   </header>
+   <stylesheets>
+      <URL value="@../../universal/css/universal_styles.css" />
+      <URL value="@../css/carMaintenance.css" />
+   </stylesheets>
+   <content>
+        <GridPane prefHeight="500.0" prefWidth="650.0" styleClass="inputGridPane">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="5.0" />
+                <ColumnConstraints percentWidth="20.0" />
+                <ColumnConstraints percentWidth="65.0" />
+                <ColumnConstraints percentWidth="10.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            </rowConstraints>
+            <Separator maxWidth="Infinity" styleClass="inputTopSeparator" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
+            <Label styleClass="fieldLabels" text="Service:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label styleClass="fieldLabels" text="Type:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label styleClass="fieldLabels" text="Mileage:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label styleClass="fieldLabels" text="Performed by:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label styleClass="fieldLabels" text="Cost:" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label styleClass="fieldLabels" text="Service date:" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Separator styleClass="inputBottomSeparator" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+            <ComboBox fx:id="serviceSelectComboBox" prefHeight="35.0" prefWidth="413.0" promptText="Select service" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <styleClass>
+               <String fx:value="inputComboBox" />
+               <String fx:value="inputComboBoxText" />
+            </styleClass></ComboBox>
+            <ComboBox fx:id="typeSelectComboBox" prefHeight="35.0" prefWidth="408.0" promptText="Select type" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <styleClass>
+               <String fx:value="inputComboBox" />
+               <String fx:value="inputComboBoxText" />
+            </styleClass></ComboBox>
+            <TextField fx:id="mileageTextField" prefHeight="32.0" prefWidth="190.0" styleClass="inputTextField" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <ComboBox fx:id="performedBySelectComboBox" prefHeight="35.0" prefWidth="410.0" promptText="Select who did or will perform service" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <styleClass>
+               <String fx:value="inputComboBox" />
+               <String fx:value="inputComboBoxText" />
+            </styleClass></ComboBox>
+            <DatePicker fx:id="serviceDatePicker" prefHeight="30.0" prefWidth="190.0" styleClass="inputDatePicker" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <TextField fx:id="costTextField" styleClass="inputTextField" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+         <HBox prefHeight="0.0" prefWidth="409.0" styleClass="inputButtonsHBox" GridPane.columnIndex="2" GridPane.rowIndex="8">
+            <children>
+               <Button fx:id="saveButton" mnemonicParsing="false" styleClass="saveCancelButtons" text=" Save">
+                  <graphic>
+                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../universal/images/saveDiskIcon.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+               <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="saveCancelButtons" text=" Cancel">
+                  <graphic>
+                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../universal/images/cancelSmallIcon.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+            </children>
+         </HBox>
+        </GridPane>
+   </content>
+</DialogPane>

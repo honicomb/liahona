@@ -1,0 +1,50 @@
+DialogPane {
+    -fx-background-color: #B3C6D1;
+}
+
+.dialogHeader {
+    -fx-font-size: 16px;
+    -fx-font-weight: 500;
+    -fx-font-family: Georgia;
+    -fx-text-fill: BLACK;
+    -fx-padding: 15 10 30 30;
+}
+
+.milestoneSelector {
+    -fx-background-color: #D0DEE4;
+    -fx-border-color: #A9C4CF;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 4 8 4 8;
+    -fx-font-size: 14px;
+}
+
+.milestoneIDLabel {
+    -fx-font-size: 16px;
+    -fx-font-weight: 500;
+    -fx-font-family: Georgia;
+    -fx-text-fill: BLACK;
+}
+
+.deleteCancelButtons {
+    -fx-background-color: #D0DEE4;
+    -fx-border-color: #A9C4CF;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-family: Georgia;
+    -fx-text-fill: BLACK;
+    -fx-font-size: 12pt;
+    -fx-pref-width: 110;
+    -fx-pref-height: 35;
+}
+
+#middleHBox {
+    -fx-alignment: CENTER;
+    -fx-spacing: 10;
+}
+
+#bottomHBox {
+    -fx-padding: 60 10 10 45;
+    -fx-spacing: 15;
+}
+

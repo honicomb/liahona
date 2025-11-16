@@ -1,0 +1,81 @@
+.filterCriteriaLabels {
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-font-family: Georgia;
+    -fx-text-fill: BLACK;
+}
+
+.sideNavButtons {
+    -fx-pref-height: 45;
+    -fx-pref-width: 150;
+    -fx-font-family: Georgia;
+    -fx-background-color: linear-gradient(to bottom, #D0E4F0, #AFCBDE); /* More contrast */
+    -fx-text-fill: #1F2E40; /* Darker text */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 18px;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-border-color: #7FAAC4;
+    -fx-border-width: 1.5;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 2);
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.sideNavButtons:hover {
+    -fx-background-color: linear-gradient(to bottom, #E3F2FB, #B6D7EB);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 6, 0, 0, 3);
+}
+
+.sideNavButtons:pressed {
+    -fx-background-color: linear-gradient(to bottom, #94B8CC, #7CA6BB);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 2, 0, 0, 1);
+}
+
+.vehicleSelector {
+    -fx-background-color: #F5F7F8;
+    -fx-border-color: #B0B8BD;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.datePicker {
+    -fx-border-color: #B0B8BD;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-size: 12px;
+    -fx-background-color: #F5F7F8;
+}
+
+.tableViewPlacement {
+    -fx-padding: 50 0 20 0;
+}
+
+.addMaintenanceButton {
+    -fx-background-color: linear-gradient(to bottom, #D4E3F0, #C6D8E8, #B8CBDC);
+    -fx-border-color: #A9C4CF;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-family: Georgia;
+    -fx-text-fill: BLACK;
+    -fx-font-size: 12pt;
+    -fx-pref-width: 200;
+    -fx-pref-height: 45;
+}
+
+.clearFiltersButton {
+        -fx-background-color: linear-gradient(to bottom, #D4E3F0, #C6D8E8, #B8CBDC);
+        -fx-border-color: #A9C4CF;
+        -fx-border-radius: 5;
+        -fx-background-radius: 5;
+        -fx-font-family: Georgia;
+        -fx-text-fill: BLACK;
+        -fx-font-size: 12pt;
+        -fx-pref-width: 200;
+        -fx-pref-height: 45;
+}
+
+.inputGridPane > .label {
+    -fx-padding: 15 5 15 5;
+}

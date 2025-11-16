@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.whitcomb.liahona.MainWindowController">
+   <top>
+       <HBox prefHeight="100.0" prefWidth="200.0" styleClass="topNavigationHBox" stylesheets="@universal/css/universal_styles.css" BorderPane.alignment="CENTER">
+           <Button fx:id="valuesTopNavBtn" mnemonicParsing="false" styleClass="topNavigationButton" stylesheets="@universal/css/universal_styles.css" text=" Values">
+            <graphic>
+                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@universal/images/valuesIcon.png" />
+                </ImageView>
+            </graphic></Button>
+           <Button fx:id="goalsTopNavBtn" mnemonicParsing="false" styleClass="topNavigationButton" stylesheets="@universal/css/universal_styles.css" text=" Goals">
+            <graphic>
+                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@universal/images/goalsIcon.png" />
+                </ImageView>
+            </graphic></Button>
+           <Button mnemonicParsing="false" styleClass="topNavigationButton" stylesheets="@universal/css/universal_styles.css" text=" Tasks">
+            <graphic>
+                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@universal/images/tasksIcon.png" />
+                </ImageView>
+            </graphic></Button>
+         <Button layoutX="107.0" layoutY="10.0" mnemonicParsing="false" styleClass="topNavigationButton" stylesheets="@universal/css/universal_styles.css" text=" Calendar">
+            <graphic>
+                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@universal/images/calendarIcon.png" />
+                </ImageView>
+            </graphic>
+         </Button>
+         <Button layoutX="151.0" layoutY="10.0" mnemonicParsing="false" styleClass="topNavigationButton" stylesheets="@universal/css/universal_styles.css" text=" Owed">
+            <graphic>
+                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@universal/images/owedIcon.png" />
+                </ImageView>
+            </graphic>
+         </Button>
+         <Button layoutX="215.0" layoutY="10.0" mnemonicParsing="false" styleClass="topNavigationButton" stylesheets="@universal/css/universal_styles.css" text=" Health">
+            <graphic>
+                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@universal/images/healthIcon.png" />
+                </ImageView>
+            </graphic>
+         </Button>
+         <Button layoutX="278.0" layoutY="10.0" mnemonicParsing="false" styleClass="topNavigationButton" stylesheets="@universal/css/universal_styles.css" text=" Workout">
+            <graphic>
+                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@universal/images/workoutIcon.png" />
+                </ImageView>
+            </graphic>
+         </Button>
+         <Button layoutX="341.0" layoutY="10.0" mnemonicParsing="false" styleClass="topNavigationButton" stylesheets="@universal/css/universal_styles.css" text=" Journal">
+            <graphic>
+                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@universal/images/journalIcon.png" />
+                </ImageView>
+            </graphic>
+         </Button>
+         <Button fx:id="trackingTopNavBtn" layoutX="405.0" layoutY="10.0" mnemonicParsing="false" styleClass="topNavigationButton" stylesheets="@universal/css/universal_styles.css" text=" Tracking">
+            <graphic>
+                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@universal/images/trackingIcon.png" />
+                </ImageView>
+            </graphic>
+         </Button>
+         <Button layoutX="468.0" layoutY="10.0" mnemonicParsing="false" styleClass="topNavigationButton" stylesheets="@universal/css/universal_styles.css" text=" Ref">
+            <graphic>
+                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@universal/images/referenceIcon.png" />
+                </ImageView>
+            </graphic>
+         </Button>
+       </HBox>
+   </top>
+   <center>
+       <AnchorPane fx:id="contentArea" prefHeight="670.0" prefWidth="1280.0" styleClass="background" stylesheets="@universal/css/universal_styles.css" BorderPane.alignment="CENTER">
+           <ImageView fitHeight="400.0" fitWidth="700.0" layoutX="290.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@universal/images/fountainPen.jpg" />
+           </ImageView>
+       </AnchorPane>
+   </center>
+</BorderPane>
