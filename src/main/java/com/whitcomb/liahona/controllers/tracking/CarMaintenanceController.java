@@ -16,7 +16,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
-
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,23 +30,21 @@ public class CarMaintenanceController implements Initializable {
 
     @FXML private Button addMaintenanceButton;
     @FXML private DatePicker beginDatePicker;
+    @FXML private TableView<CarMaintenanceEntry> carMaintenanceTableView;
     @FXML private Button clearFiltersButton;
     @FXML private TableColumn<CarMaintenanceEntry, Double> costTableCol;
     @FXML private TableColumn<CarMaintenanceEntry, LocalDate> dateTableCol;
     @FXML private DatePicker endDatePicker;
-    private FilteredList<CarMaintenanceEntry> filteredEntries;
     @FXML private TableColumn<CarMaintenanceEntry, Integer> mileageTableCol;
     @FXML private TableColumn<CarMaintenanceEntry, String> providerTableCol;
     @FXML private TableColumn<CarMaintenanceEntry, String> serviceTableCol;
     @FXML private TableColumn<CarMaintenanceEntry, CarMaintenanceType > typeTableCol;
-    @FXML private TableView<CarMaintenanceEntry> carMaintenanceTableView;
-    @FXML private TableColumn<CarMaintenanceEntry, String> vehicleTableCol;
     @FXML private ComboBox<String> vehicleComboBox;
+    @FXML private TableColumn<CarMaintenanceEntry, String> vehicleTableCol;
 
-    private CarMaintenanceEntry editingCarMaintEntry = null;
-    private CarMaintenanceEntry originalCarMaintEntry = null;
-
-    private String vehicleSelected;
+    private FilteredList<CarMaintenanceEntry> filteredEntries;
+    private CarMaintenanceEntry editingEntry = null;
+    private CarMaintenanceEntry originalEntry = null;
 
     ObservableList<String> allVehicles = FXCollections.observableArrayList();
     ObservableList<String> allServices = FXCollections.observableArrayList();
@@ -60,11 +57,13 @@ public class CarMaintenanceController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        vehicleComboBox.setItems(getAllVehicleValues());
         getAllServices();
         getAllProviders();
+
+        //*** Don't want these buttons displayed until vehicle is selected or changes are being made to entry ***//
         addMaintenanceButton.setVisible(false);
 
+        vehicleComboBox.setItems(getAllVehicleValues());
         vehicleComboBox.setOnAction(event -> {
            clearServiceEntriesInTable();
            String vehicleChosen = vehicleComboBox.getSelectionModel().getSelectedItem();
@@ -75,15 +74,18 @@ public class CarMaintenanceController implements Initializable {
 
         populateTableWithCarMaintenanceEntries();
 
-    // Centralize edit start handling
-        dateTableCol.setOnEditStart(e -> beginEditing(e.getRowValue()));
-        mileageTableCol.setOnEditStart(e -> beginEditing(e.getRowValue()));
-        serviceTableCol.setOnEditStart(e -> beginEditing(e.getRowValue()));
-        vehicleTableCol.setOnEditStart(e -> beginEditing(e.getRowValue()));
+        // Centralize edit start handling
+        carMaintenanceTableView.editingCellProperty().addListener((observable, oldCell, newCell) -> {
+            if (newCell != null) {
+                CarMaintenanceEntry row = carMaintenanceTableView.getItems().get(newCell.getRow());
+                startRowEdit(row);
+            }
+        });
 
         addMaintenanceButton.setOnAction(event -> {
             showAddMaintenanceDialog();
         });
+
 
         // Listeners for date filtering
         beginDatePicker.valueProperty().addListener((obs, oldVal, newVal) -> applyFilters());
@@ -102,10 +104,7 @@ public class CarMaintenanceController implements Initializable {
         clearFiltersButton.setOnAction(e -> clearFilters());
     }
 
-    public void clearServiceEntriesInTable() {
-        serviceEntries.clear();
-    }
-
+    // ******************** Getting data to populate in combo boxes and tableview *********//
     public ObservableList<String> getAllVehicleValues() {
         try {
             DBHandlerTracking dbh = new DBHandlerTracking();
@@ -161,7 +160,8 @@ public class CarMaintenanceController implements Initializable {
             Connection conn = dbh.getConnection();
 
             pre = conn.prepareStatement(
-                    "SELECT c.cost, " +
+                    "SELECT c.service_entry_id, " +
+                            "c.cost, " +
                             "c.mileage, " +
                             "c.service_date, " +
                             "c.service_id, " +
@@ -193,6 +193,7 @@ public class CarMaintenanceController implements Initializable {
                         rs.getInt("mileage" ),
                         serviceDate,
                         rs.getString("service_desc" ),
+                        rs.getInt("service_entry_id"),
                         rs.getString("service_id" ),
                         rs.getInt("service_provider_id" ),
                         rs.getString("provider_name" ),
@@ -207,6 +208,8 @@ public class CarMaintenanceController implements Initializable {
             }
     }
 
+
+    // ******************** Populating tableview *******************//
     public void populateTableWithCarMaintenanceEntries() {
         carMaintenanceTableView.setEditable(true);
 
@@ -223,28 +226,6 @@ public class CarMaintenanceController implements Initializable {
 
         // Bind the FilteredList to the table
         carMaintenanceTableView.setItems(filteredEntries);
-    }
-
-    private void beginEditing(CarMaintenanceEntry row) {
-        if (editingCarMaintEntry == null) {
-            editingCarMaintEntry = row;
-            originalCarMaintEntry = new CarMaintenanceEntry(
-                    row.getCost(),
-                    row.getMileage(),
-                    row.getServiceDate(),
-                    row.getServiceDesc(),
-                    row.getServiceID(),
-                    row.getServiceProviderID(),
-                    row.getServiceProviderName(),
-                    row.getType(),
-                    row.getVehicleID(),
-                    row.getVehicleModel()
-            );
-            // Can put buttons to enable and disable here
-        } else if (!editingCarMaintEntry.equals(row)) {
-            carMaintenanceTableView.getSelectionModel().clearSelection();
-            carMaintenanceTableView.edit(-1, null);
-        }
     }
 
     public void populateDateColumn() {
@@ -270,13 +251,7 @@ public class CarMaintenanceController implements Initializable {
             @Override
             public void startEdit() {
                 CarMaintenanceEntry rowItem = getTableRow() != null ? getTableRow().getItem() : null;
-
                 if (rowItem == null) return;
-
-                if (editingCarMaintEntry != null && !editingCarMaintEntry.equals(rowItem)) {
-                    carMaintenanceTableView.edit(-1, null);
-                    return;
-                }
 
                 super.startEdit();
                 datePicker.setValue(getItem());
@@ -293,7 +268,11 @@ public class CarMaintenanceController implements Initializable {
 
             public void commitEdit(LocalDate newValue) {
                 super.commitEdit(newValue);
-                getTableView().getItems().get(getIndex()).setServiceDate(newValue);
+                CarMaintenanceEntry entry = getTableRow().getItem();
+                if (entry != null) {
+                    entry.setServiceDate(newValue);
+                    updateDatabase(entry);
+                }
                 cancelEdit();
             }
 
@@ -326,7 +305,12 @@ public class CarMaintenanceController implements Initializable {
         serviceTableCol.setEditable(true);
         serviceTableCol.setCellValueFactory(cellData -> cellData.getValue().serviceDescProperty());
         serviceTableCol.setCellFactory(ComboBoxTableCell.forTableColumn(allServices));
-        serviceTableCol.setOnEditCommit(e -> e.getRowValue().setServiceDesc(e.getNewValue()));
+        serviceTableCol.setOnEditCommit(e -> {
+            CarMaintenanceEntry entry = e.getRowValue();
+            entry.setServiceDesc(e.getNewValue());
+            entry.setServiceID(getServiceIdByDesc(entry.getServiceDesc()));
+            updateDatabase(entry);
+        });
      }
 
     public void populateMileageColumn() {
@@ -342,7 +326,6 @@ public class CarMaintenanceController implements Initializable {
             @Override
             public void startEdit() {
                 super.startEdit();
-
                 if (textField == null) {
                     textField = new TextField();
                 }
@@ -409,8 +392,10 @@ public class CarMaintenanceController implements Initializable {
             @Override
             public void commitEdit(Integer newValue) {
                 super.commitEdit(newValue);
-                if (getTableRow() != null && getTableRow().getItem() != null) {
-                    getTableRow().getItem().setMileage(newValue);
+                CarMaintenanceEntry entry = getTableRow().getItem();
+                if (entry != null) {
+                    entry.setMileage(newValue);
+                    updateDatabase(entry);
                 }
             }
         });
@@ -430,6 +415,7 @@ public class CarMaintenanceController implements Initializable {
             CarMaintenanceEntry entry = e.getRowValue();
             if (entry != null) {
                 entry.setType(e.getNewValue());
+                updateDatabase(entry);
             }
         });
     }
@@ -509,25 +495,125 @@ public class CarMaintenanceController implements Initializable {
                     cancelEdit(); // Or show a validation error
                     }
                 }
+
+            public void commitEdit(Double newValue) {
+                super.commitEdit(newValue);
+                CarMaintenanceEntry entry = getTableRow().getItem();
+                if (entry != null) {
+                    entry.setCost(newValue);
+                    updateDatabase(entry);
+                }
+            }
         });
     }
 
     public void populatePerformedByColumn() {
         providerTableCol.setEditable(true);
         providerTableCol.setCellValueFactory(cellData -> cellData.getValue().serviceProviderNameProperty());
+
         providerTableCol.setCellFactory(column -> {
             ComboBoxTableCell<CarMaintenanceEntry, String> cell = new ComboBoxTableCell<>(allProviders);
             cell.setAlignment(Pos.CENTER);
             return cell;
         });
 
-        typeTableCol.setOnEditCommit(e -> {
+        providerTableCol.setOnEditCommit(e -> {
             CarMaintenanceEntry entry = e.getRowValue();
             if (entry != null) {
-                entry.setServiceProviderName(String.valueOf(e.getNewValue()));
+                entry.setServiceProviderName(e.getNewValue());
+                entry.setServiceProviderID(getProviderIdByName(entry.getServiceProviderName()));
+                updateDatabase(entry);
             }
         });
 
+    }
+
+
+    //******************** Editing, adding, and filtering functions ************//
+    public void updateDatabase(CarMaintenanceEntry entry) {
+        try {
+            DBHandlerTracking dbh = new DBHandlerTracking();
+            Connection conn = dbh.getConnection();
+
+            PreparedStatement pre = conn.prepareStatement(
+                    "UPDATE car_maintenance_log SET "   +
+                            "cost = ?, "                +
+                            "mileage = ?, "             +
+                            "service_date = ?, "        +
+                            "service_id = ?, "          +
+                            "service_provider_id = ?, " +
+                            "type = ? "                 +
+                            "WHERE service_entry_id = ?"
+            );
+
+            // New updated values
+            pre.setDouble(1, entry.getCost());
+            pre.setInt(2, entry.getMileage());
+            pre.setDate(3, entry.getServiceDate() != null ? Date.valueOf(entry.getServiceDate()) : null);
+            pre.setString(4, entry.getServiceID());
+            pre.setInt(5, entry.getServiceProviderID());
+            pre.setString(6, entry.getType().name());
+            pre.setInt(7, entry.getServiceEntryID());
+
+            pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void startRowEdit(CarMaintenanceEntry row) {
+        if (editingEntry == null) {
+            editingEntry = row;
+            originalEntry = new CarMaintenanceEntry(
+                    row.getCost(),
+                    row.getMileage(),
+                    row.getServiceDate(),
+                    row.getServiceDesc(),
+                    row.getServiceEntryID(),
+                    row.getServiceID(),
+                    row.getServiceProviderID(),
+                    row.getServiceProviderName(),
+                    row.getType(),
+                    row.getVehicleID(),
+                    row.getVehicleModel()
+            );
+            return;
+        }
+
+        // Already editing another row then force to stay on same row
+        if (editingEntry != row) {
+            carMaintenanceTableView.getSelectionModel().select(editingEntry);
+        }
+    }
+
+    private String getServiceIdByDesc(String desc) {
+        try {
+            Connection conn = new DBHandlerTracking().getConnection();
+            PreparedStatement pre = conn.prepareStatement("SELECT service_id FROM service_dim WHERE service_desc = ?");
+            pre.setString(1, desc);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) return rs.getString("service_id");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private int getProviderIdByName(String name) {
+        try {
+            Connection conn = new DBHandlerTracking().getConnection();
+            PreparedStatement pre = conn.prepareStatement("SELECT service_provider_id FROM service_provider_dim WHERE provider_name = ?");
+            pre.setString(1, name);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public void clearServiceEntriesInTable() {
+        serviceEntries.clear();
     }
 
     public void showAddMaintenanceDialog() {

@@ -8,11 +8,10 @@ module com.whitcomb.liahona {
     exports com.whitcomb.liahona.models.values;
     exports com.whitcomb.liahona.models.configs;
     exports com.whitcomb.liahona.models.tracking;
-    exports com.whitcomb.liahona.controllers.values to javafx.fxml;
-    exports com.whitcomb.liahona.controllers.goals to javafx.fxml;
-    exports com.whitcomb.liahona.controllers.tracking to javafx.fxml;
+
 
     opens com.whitcomb.liahona to javafx.fxml;
+    opens com.whitcomb.liahona.controllers.health to javafx.fxml;
     opens com.whitcomb.liahona.controllers.values to javafx.fxml;
     opens com.whitcomb.liahona.controllers.goals to javafx.fxml;
     opens com.whitcomb.liahona.controllers.tracking to javafx.fxml;

@@ -9,6 +9,7 @@ public class CarMaintenanceEntry {
     private final IntegerProperty mileage;
     private final ObjectProperty<LocalDate> serviceDate;
     private final StringProperty serviceDesc;
+    private final IntegerProperty serviceEntryID; // Primary Key in database //
     private final StringProperty serviceID;
     private final IntegerProperty serviceProviderID;
     private final StringProperty serviceProviderName;
@@ -17,11 +18,12 @@ public class CarMaintenanceEntry {
     private final StringProperty vehicleModel;
 
 
-    public CarMaintenanceEntry(Double cost, Integer mileage, LocalDate serviceDate, String serviceDesc, String serviceID, Integer serviceProviderID, String serviceProviderName, CarMaintenanceType type, String vehicleID, String vehicleModel) {
+    public CarMaintenanceEntry(Double cost, Integer mileage, LocalDate serviceDate, String serviceDesc, Integer serviceEntryID, String serviceID, Integer serviceProviderID, String serviceProviderName, CarMaintenanceType type, String vehicleID, String vehicleModel) {
         this.cost = new SimpleDoubleProperty(cost);
         this.mileage = new SimpleIntegerProperty(mileage);
         this.serviceDate = new SimpleObjectProperty<>(serviceDate);
         this.serviceDesc = new SimpleStringProperty(serviceDesc);
+        this.serviceEntryID = new SimpleIntegerProperty(serviceEntryID);
         this.serviceID = new SimpleStringProperty(serviceID);
         this.serviceProviderID = new SimpleIntegerProperty(serviceProviderID);
         this.serviceProviderName = new SimpleStringProperty(serviceProviderName);
@@ -86,6 +88,12 @@ public class CarMaintenanceEntry {
     }
 
 
+    // ServiceEntryID
+    public int getServiceEntryID() { return serviceEntryID.get();}
+
+    public IntegerProperty serviceEntryIDProperty() {return serviceEntryID;}
+
+
     // getServiceID
     public String getServiceID() {
         return serviceID.get();
@@ -105,9 +113,7 @@ public class CarMaintenanceEntry {
         return serviceProviderID.get();
     }
 
-    public void setServiceProviderID(int serviceProviderID) {
-        this.serviceProviderID.set(serviceProviderID);
-    }
+    public void setServiceProviderID(Integer serviceProviderID) { this.serviceProviderID.set(serviceProviderID); }
 
     public IntegerProperty serviceProviderIDProperty() {
         return serviceProviderID;

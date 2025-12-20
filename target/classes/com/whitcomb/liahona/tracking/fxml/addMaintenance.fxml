@@ -67,30 +67,25 @@
                <String fx:value="inputComboBox" />
                <String fx:value="inputComboBoxText" />
             </styleClass></ComboBox>
-            <DatePicker fx:id="serviceDatePicker" prefHeight="30.0" prefWidth="190.0" styleClass="inputDatePicker" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <TextField fx:id="costTextField" styleClass="inputTextField" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-         <HBox prefHeight="0.0" prefWidth="409.0" styleClass="inputButtonsHBox" GridPane.columnIndex="2" GridPane.rowIndex="8">
-            <children>
-               <Button fx:id="saveButton" mnemonicParsing="false" styleClass="saveCancelButtons" text=" Save">
-                  <graphic>
-                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@../../universal/images/saveDiskIcon.png" />
-                        </image>
-                     </ImageView>
-                  </graphic>
-               </Button>
-               <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="saveCancelButtons" text=" Cancel">
-                  <graphic>
-                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@../../universal/images/cancelSmallIcon.png" />
-                        </image>
-                     </ImageView>
-                  </graphic>
-               </Button>
-            </children>
-         </HBox>
+            <DatePicker fx:id="serviceDatePicker" prefHeight="30.0" prefWidth="190.0" styleClass="inputDatePicker" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <HBox prefHeight="0.0" prefWidth="409.0" styleClass="inputButtonsHBox" GridPane.columnIndex="2"
+                  GridPane.rowIndex="8">
+                <Button fx:id="saveButton" mnemonicParsing="false" styleClass="addSaveCancelButtons" text=" Save">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../../universal/images/saveDiskIcon.png"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="addSaveCancelButtons" text=" Cancel">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../../universal/images/cancelSmallIcon.png"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
         </GridPane>
    </content>
 </DialogPane>

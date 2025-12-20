@@ -16,6 +16,7 @@ public class MainWindowController implements Initializable {
     @FXML private BorderPane borderPane;
     @FXML private AnchorPane contentArea;
     @FXML private Button goalsTopNavBtn;
+    @FXML private Button healthTopNavBtn;
     @FXML private Button trackingTopNavBtn;
     @FXML private Button valuesTopNavBtn;
 
@@ -24,6 +25,9 @@ public class MainWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         goalsTopNavBtn.setOnAction(event -> {
             changeContentWindow("goals/fxml/goals.fxml");
+        });
+        healthTopNavBtn.setOnAction(event -> {
+            changeContentWindow("health/fxml/vitals.fxml");
         });
         trackingTopNavBtn.setOnAction(event -> {
             changeContentWindow("tracking/fxml/carMaintenance.fxml");

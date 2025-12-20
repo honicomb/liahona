@@ -34,9 +34,9 @@
     -fx-font-size: 20pt;
     -fx-font-family: Georgia;
     -fx-font-weight: 600;
-    -fx-text-alignment: center;
+    -fx-text-alignment: LEFT;
     -fx-text-fill: #002F52;
-    -fx-alignment: center;
+    -fx-alignment: CENTER_LEFT;
 }
 
 /******************** Tableviews *******************/
@@ -62,7 +62,8 @@
 }
 
 .dataTable .table-row-cell {
-    fx-padding: 4 3 4 3;
+    -fx-padding: 2 2 2 2;
+    -fx-cell-size: 25px;
 }
 
 .dataTable .scroll-bar:horizontal {
@@ -130,6 +131,15 @@
     -fx-background-radius: 5;
 }
 
+.inputTextFieldShort {
+    -fx-font-size: 14px;
+    -fx-max-width: 150;
+    -fx-background-color: #F5F7FA;
+    -fx-border-color: #A9C4CF;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
 .inputDatePicker {
     -fx-background-color: #F5F7FA;
     -fx-border-color: #A9C4CF;
@@ -137,6 +147,7 @@
     -fx-background-radius: 5;
     -fx-min-height: 30;
     -fx-max-height: 30;
+    -fx-max-width: 150;
 }
 
 .inputComboBox {
@@ -167,10 +178,14 @@
     -fx-spacing: 20;
 }
 
+.inputGridPane > .label {
+    -fx-padding: 15 5 15 5;
+}
+
 
 /***************************** Universal buttons **********************/
 
-.saveCancelButtons {
+.addSaveCancelButtons {
     -fx-background-color: #C6D8E8;
     -fx-border-color: #A9C4CF;
     -fx-border-radius: 5;
@@ -179,5 +194,57 @@
     -fx-text-fill: BLACK;
     -fx-font-size: 12pt;
     -fx-pref-width: 110;
-    -fx-pref-height: 35;
+    -fx-pref-height: 40;
+}
+
+.sideNavButtons {
+    -fx-pref-height: 45;
+    -fx-pref-width: 150;
+    -fx-font-family: Georgia;
+    -fx-background-color: linear-gradient(to bottom, #D0E4F0, #AFCBDE); /* More contrast */
+    -fx-text-fill: #1F2E40; /* Darker text */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 18px;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-border-color: #7FAAC4;
+    -fx-border-width: 1.5;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 2);
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.sideNavButtons:hover {
+    -fx-background-color: linear-gradient(to bottom, #E3F2FB, #B6D7EB);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 6, 0, 0, 3);
+}
+
+.sideNavButtons:pressed {
+    -fx-background-color: linear-gradient(to bottom, #94B8CC, #7CA6BB);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 2, 0, 0, 1);
+}
+
+/***************** Centering buttons in an Hbox (used on many screens) *****************/
+
+.buttonsHbox {
+    -fx-alignment: center-left;
+    -fx-spacing: 25;
+}
+
+/***************** Filter criteria and date pickers *********************/
+
+.filterCriteriaLabels {
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-font-family: Georgia;
+    -fx-text-fill: BLACK;
+}
+
+.datePicker {
+    -fx-border-color: #B0B8BD;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-size: 12px;
+    -fx-background-color: #F5F7F8;
 }

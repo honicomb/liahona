@@ -33,14 +33,14 @@
          </HBox>
          <Separator fx:id="lowerSeparator" prefWidth="200.0" />
          <HBox prefHeight="100.0" prefWidth="200.0" styleClass="hboxWithButtons">
-            <Button fx:id="saveButton" mnemonicParsing="false" styleClass="saveCancelButtons" text="Save">
+            <Button fx:id="saveButton" mnemonicParsing="false" styleClass="addSaveCancelButtons" text="Save">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <Image url="@../../universal/images/saveDiskIcon.png" />
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="cancelButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="saveCancelButtons" text="Cancel">
+            <Button fx:id="cancelButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="addSaveCancelButtons" text="Cancel">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <Image url="@../../universal/images/cancelSmallIcon.png" />

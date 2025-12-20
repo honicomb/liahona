@@ -13,6 +13,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
@@ -94,13 +95,6 @@
         <Label styleClass="filterCriteriaLabels" text="Vehicle" />
         <ComboBox fx:id="vehicleComboBox" prefWidth="125.0" promptText="Select vehicle" styleClass="vehicleSelector" />
     </VBox>
-   <Button fx:id="addMaintenanceButton" mnemonicParsing="false" styleClass="addMaintenanceButton" text=" Add Maintenance" GridPane.columnIndex="3" GridPane.rowIndex="8">
-      <graphic>
-          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-              <Image url="@../images/addMaintenance.png" />
-          </ImageView>
-      </graphic>
-   </Button>
    <Button fx:id="clearFiltersButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="131.0" styleClass="clearFiltersButton" text=" Clear Filters" GridPane.columnIndex="6" GridPane.rowIndex="8">
       <graphic>
          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
@@ -110,4 +104,15 @@
          </ImageView>
       </graphic>
    </Button>
+   <HBox prefHeight="100.0" prefWidth="200.0" styleClass="buttonsHbox" GridPane.columnIndex="3" GridPane.rowIndex="8">
+      <children>
+         <Button fx:id="addMaintenanceButton" mnemonicParsing="false" styleClass="addMaintenanceButton" text=" Add Maintenance">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../images/addMaintenance.png" />
+                </ImageView>
+            </graphic>
+         </Button>
+      </children>
+   </HBox>
 </GridPane>

@@ -16,47 +16,26 @@ import com.whitcomb.liahona.models.values.DBHandlerValues;
 
 public class valuesController implements Initializable {
 
-    @FXML
-    private Button beingTrueBtn;
-    @FXML
-    private Button comfortBtn;
-    @FXML
-    private Button familyBtn;
-    @FXML
-    private Button familyHistoryBtn;
-    @FXML
-    private Button feelSpiritBtn;
-    @FXML
-    private Button financialStewardshipBtn;
-    @FXML
-    private Button healthBtn;
-    @FXML
-    private Button inControlBtn;
-    @FXML
-    private Button intimacyBtn;
-    @FXML
-    private Button obedienceBtn;
-    @FXML
-    private Button orderBtn;
-    @FXML
-    private ImageView pntIconImgView;
-    @FXML
-    private Button posterityBtn;
-    @FXML
-    private Button relationshipBtn;
-    @FXML
-    private Button truthBtn;
-    @FXML
-    private Label valueBoxTitleLbl;
-    @FXML
-    private TextArea valueHowTextLbl;
-    @FXML
-    private TextArea valueWhyTextLbl;
-
-    @FXML
-    private ResourceBundle resources;
-    @FXML
-    private URL location;
+    @FXML private Button beingTrueBtn;
+    @FXML private Button comfortBtn;
+    @FXML private Button familyBtn;
+    @FXML private Button familyHistoryBtn;
+    @FXML private Button feelSpiritBtn;
+    @FXML private Button financialStewardshipBtn;
+    @FXML private Button healthBtn;
+    @FXML private Button inControlBtn;
+    @FXML private Button intimacyBtn;
+    @FXML private Button obedienceBtn;
+    @FXML private Button orderBtn;
+    @FXML private ImageView pntIconImgView;
+    @FXML private Button posterityBtn;
+    @FXML private Button relationshipBtn;
+    @FXML private Button truthBtn;
+    @FXML private Label valueBoxTitleLbl;
+    @FXML private TextArea valueHowTextLbl;
+    @FXML private TextArea valueWhyTextLbl;
+    @FXML private ResourceBundle resources;
+    @FXML private URL location;
 
     PreparedStatement pre;
     ResultSet rs;
