@@ -10,5 +10,5 @@ public class TrackingDB {
 
     protected String dbPass = "Alma12:27!";
 
-    protected String dbName = "tracking";
+    protected String dbName = "prod_tracking";
 }

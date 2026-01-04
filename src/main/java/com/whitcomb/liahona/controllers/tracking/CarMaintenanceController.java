@@ -175,7 +175,8 @@ public class CarMaintenanceController implements Initializable {
                             "LEFT JOIN service_dim s ON c.service_id = s.service_id " +
                             "LEFT JOIN service_provider_dim p ON c.service_provider_id = p.service_provider_id " +
                             "LEFT JOIN vehicle_dim v ON c.vehicle_id = v.vehicle_id " +
-                            "WHERE v.model = ?" );
+                            "WHERE v.model = ?" +
+                            "ORDER BY service_date" );
             pre.setString(1, vehicleModelChosen);
             rs = pre.executeQuery();
 

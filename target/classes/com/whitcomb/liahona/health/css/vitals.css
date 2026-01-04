@@ -1,0 +1,39 @@
+.tableViewPlacement {
+    -fx-padding: 30 0 20 0;
+}
+
+.calendarButtonHbox {
+    -fx-spacing: 20;
+    -fx-alignment: bottom-right;
+}
+
+.smallButtons {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.smallButtons:hover {
+    -fx-background-color: WHITE;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
+.smallButtons:pressed {
+    -fx-background-color: #87CEEB;
+}
+
+.beginDateVBox {
+    -fx-padding: 0 0 7 0;
+}
+
+.addButton {
+    -fx-background-color: linear-gradient(to bottom, #D4E3F0, #C6D8E8, #B8CBDC);
+    -fx-border-color: #A9C4CF;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-family: Georgia;
+    -fx-text-fill: BLACK;
+    -fx-font-size: 12pt;
+    -fx-pref-width: 100;
+    -fx-pref-height: 45;
+}

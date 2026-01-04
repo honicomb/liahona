@@ -10,5 +10,5 @@ public class HealthDB {
 
     protected String dbPass = "Alma12:27!";
 
-    protected String dbName = "health";
+    protected String dbName = "prod_health";
 }

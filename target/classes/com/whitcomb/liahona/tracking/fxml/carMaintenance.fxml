@@ -104,15 +104,15 @@
          </ImageView>
       </graphic>
    </Button>
-   <HBox prefHeight="100.0" prefWidth="200.0" styleClass="buttonsHbox" GridPane.columnIndex="3" GridPane.rowIndex="8">
-      <children>
-         <Button fx:id="addMaintenanceButton" mnemonicParsing="false" styleClass="addMaintenanceButton" text=" Add Maintenance">
-            <graphic>
-                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../images/addMaintenance.png" />
-                </ImageView>
-            </graphic>
-         </Button>
-      </children>
-   </HBox>
+    <HBox prefHeight="100.0" prefWidth="200.0" styleClass="buttonsHboxCenterLeft" GridPane.columnIndex="3"
+          GridPane.rowIndex="8">
+        <Button fx:id="addMaintenanceButton" mnemonicParsing="false" styleClass="addMaintenanceButton"
+                text=" Add Maintenance">
+           <graphic>
+               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                   <Image url="@../images/addMaintenance.png"/>
+               </ImageView>
+           </graphic>
+        </Button>
+    </HBox>
 </GridPane>

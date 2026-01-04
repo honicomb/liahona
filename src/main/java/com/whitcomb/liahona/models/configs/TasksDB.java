@@ -10,5 +10,5 @@ public class TasksDB {
 
     protected String dbPass = "Alma12:27!";
 
-    protected String dbName = "tasks";
+    protected String dbName = "prod_tasks";
 }

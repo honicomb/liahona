@@ -16,6 +16,7 @@ public class MainWindowController implements Initializable {
     @FXML private BorderPane borderPane;
     @FXML private AnchorPane contentArea;
     @FXML private Button goalsTopNavBtn;
+    @FXML private Button tasksTopNavBtn;
     @FXML private Button healthTopNavBtn;
     @FXML private Button trackingTopNavBtn;
     @FXML private Button valuesTopNavBtn;
@@ -25,6 +26,9 @@ public class MainWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         goalsTopNavBtn.setOnAction(event -> {
             changeContentWindow("goals/fxml/goals.fxml");
+        });
+        tasksTopNavBtn.setOnAction(event -> {
+            changeContentWindow("tasks/fxml/tasks.fxml");
         });
         healthTopNavBtn.setOnAction(event -> {
             changeContentWindow("health/fxml/vitals.fxml");
@@ -39,7 +43,9 @@ public class MainWindowController implements Initializable {
 
     public void changeContentWindow(String fxmlpath) {
         try {
-            Node node = FXMLLoader.load(getClass().getResource(fxmlpath));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlpath));
+            Node node = loader.load();
+
             contentArea.getChildren().setAll(node);
         } catch (Exception e) {
             e.printStackTrace();

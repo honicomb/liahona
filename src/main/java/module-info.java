@@ -12,6 +12,7 @@ module com.whitcomb.liahona {
 
     opens com.whitcomb.liahona to javafx.fxml;
     opens com.whitcomb.liahona.controllers.health to javafx.fxml;
+    opens com.whitcomb.liahona.controllers.tasks to javafx.fxml;
     opens com.whitcomb.liahona.controllers.values to javafx.fxml;
     opens com.whitcomb.liahona.controllers.goals to javafx.fxml;
     opens com.whitcomb.liahona.controllers.tracking to javafx.fxml;

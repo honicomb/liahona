@@ -22,7 +22,7 @@
                     <Image url="@universal/images/goalsIcon.png" />
                 </ImageView>
             </graphic></Button>
-           <Button mnemonicParsing="false" styleClass="topNavigationButton" stylesheets="@universal/css/universal_styles.css" text=" Tasks">
+           <Button fx:id="tasksTopNavBtn" mnemonicParsing="false" styleClass="topNavigationButton" stylesheets="@universal/css/universal_styles.css" text=" Tasks">
             <graphic>
                 <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@universal/images/tasksIcon.png" />

@@ -147,14 +147,17 @@ public class GoalsController implements Initializable {
                         "SELECT  g.value_id, "   +
                                 "v.value_name, " +
                                 "h.how_desc, "   +
-                                "g.goal_desc "   +
+                                "g.goal_desc, "  +
+                                "g.goal_id "     +
                         "FROM goal g " +
                         "JOIN value v ON g.value_id = v.value_id " +
                         "JOIN how h ON g.how_id = h.how_id " +
                         "WHERE g.short_desc = ?");
             pre.setString(1, goalChosen);
             rs = pre.executeQuery();
-            while (rs.next()) {
+
+            if (rs.next()) {
+                goalIDofSelectedGoal = rs.getString("goal_id");
                 valueTextField.setText(rs.getString("value_name"));
                 howTextField.setText(rs.getString("how_desc"));
                 goalDescTextField.setText(rs.getString("goal_desc"));
@@ -206,7 +209,6 @@ public class GoalsController implements Initializable {
 
         // Saving Goal ID of selected goal for use in populating milestone table w/updates
         if (!milestones.isEmpty()) {
-            goalIDofSelectedGoal = milestones.getFirst().getGoalID();
             deleteButton.setVisible(true);
             deleteButton.setDisable(false);       // Enable if milestones exist
         } else {

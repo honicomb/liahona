@@ -17,11 +17,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.print.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.transform.Scale;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.DoubleStringConverter;
@@ -30,49 +32,73 @@ import javafx.util.converter.IntegerStringConverter;
 public class VitalsController implements Initializable {
 
     // FXML & Java attributes for entire page
-    @FXML private Button addFoodButton;
-    @FXML private Button mealPlansButton;
-    @FXML private Button reportsButton;
-    @FXML private Button vitalsButton;
+    @FXML
+    private Button addFoodButton;
+    @FXML
+    private Button mealPlansButton;
+    @FXML
+    private Button reportsButton;
+    @FXML
+    private Button vitalsButton;
 
     // FXML & Java attributes for all Vitals views
-    @FXML private DatePicker beginDatePicker;
-    @FXML private Button dailyViewButton;
-    @FXML private Button printButton;
-    @FXML private Label tableHeaderText;
-    @FXML private Button weeklyViewButton;
-    @FXML private ResourceBundle resources;
-    @FXML private URL location;
+    @FXML
+    private DatePicker beginDatePicker;
+    @FXML
+    private Button dailyViewButton;
+    @FXML
+    private Button printButton;
+    @FXML
+    private Label tableHeaderText;
+    @FXML
+    private Button weeklyViewButton;
+    @FXML
+    private ResourceBundle resources;
+    @FXML
+    private URL location;
 
     PreparedStatement pre;
     ResultSet rs;
 
 
     // FXML & Java attributes for Vitals - daily views
-    @FXML private Button addButton;
-    @FXML private TableColumn<DailyHealthEntry, Integer> bloodSugarTableCol;
-    @FXML private TableColumn<DailyHealthEntry, LocalDate> dateTableCol;
-    @FXML private TableColumn<DailyHealthEntry, String> medsTableCol;
-    @FXML private TableColumn<DailyHealthEntry, Integer> stepsTableCol;
-    @FXML private TableView<DailyHealthEntry> vitalsTableView;
-    @FXML private TableColumn<DailyHealthEntry, Double> weightTableCol;
+    @FXML
+    private Button addButton;
+    @FXML
+    private TableColumn<DailyHealthEntry, Integer> bloodSugarTableCol;
+    @FXML
+    private TableColumn<DailyHealthEntry, LocalDate> dateTableCol;
+    @FXML
+    private TableColumn<DailyHealthEntry, String> medsTableCol;
+    @FXML
+    private TableColumn<DailyHealthEntry, Integer> stepsTableCol;
+    @FXML
+    private TableView<DailyHealthEntry> vitalsTableView;
+    @FXML
+    private TableColumn<DailyHealthEntry, Double> weightTableCol;
 
     private DailyHealthEntry editingEntry = null;
     private FilteredList<DailyHealthEntry> filteredDailyEntries;
     private ObservableList<DailyHealthEntry> healthDailyEntries = FXCollections.observableArrayList();
     private DailyHealthEntry originalEntry = null;
-    private ObservableList<String> yesOrNo  = FXCollections.observableArrayList("Y","N");
+    private ObservableList<String> yesOrNo = FXCollections.observableArrayList("Y", "N");
 
 
     // FXML & Java attributes for Vitals - weekly views
-    @FXML private TableColumn<WeeklyHealthEntry, Integer> bloodSugarAvgTableCol;
+    @FXML
+    private TableColumn<WeeklyHealthEntry, Integer> bloodSugarAvgTableCol;
     private FilteredList<WeeklyHealthEntry> filteredWeeklyEntries;
     private ObservableList<WeeklyHealthEntry> healthWeeklyEntries = FXCollections.observableArrayList();
-    @FXML private TableColumn<WeeklyHealthEntry, Integer> medsCntTableCol;
-    @FXML private TableColumn<WeeklyHealthEntry, Integer> stepsAvgTableCol;
-    @FXML private TableColumn<WeeklyHealthEntry, Double> weightAvgTableCol;
-    @FXML private TableView<WeeklyHealthEntry> weeklyVitalsTableView;
-    @FXML private TableColumn<WeeklyHealthEntry, LocalDate> weekStartTableCol;
+    @FXML
+    private TableColumn<WeeklyHealthEntry, Integer> medsCntTableCol;
+    @FXML
+    private TableColumn<WeeklyHealthEntry, Integer> stepsAvgTableCol;
+    @FXML
+    private TableColumn<WeeklyHealthEntry, Double> weightAvgTableCol;
+    @FXML
+    private TableView<WeeklyHealthEntry> weeklyVitalsTableView;
+    @FXML
+    private TableColumn<WeeklyHealthEntry, LocalDate> weekStartTableCol;
 
 
     @Override
@@ -131,21 +157,23 @@ public class VitalsController implements Initializable {
             addButton.setVisible(false);
         });
 
+        printButton.setOnAction(e -> printDailyTable());
+
         // Centralize edit start handling
         vitalsTableView.editingCellProperty().addListener((observable, oldCell, newCell) -> {
-            if (newCell != null) {
-                DailyHealthEntry row = vitalsTableView.getItems().get(newCell.getRow());
-                startRowEdit(row);
-            }
-        }
-    );
+                    if (newCell != null) {
+                        DailyHealthEntry row = vitalsTableView.getItems().get(newCell.getRow());
+                        startRowEdit(row);
+                    }
+                }
+        );
 
         addButton.setOnAction(e -> showAddHealthEntryDialog());
 
         // Listeners for date filtering
         beginDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-                applyFilters(filteredDailyEntries, DailyHealthEntry::getBeginDate);
-                applyFilters(filteredWeeklyEntries, WeeklyHealthEntry::getBeginDate);
+            applyFilters(filteredDailyEntries, DailyHealthEntry::getBeginDate);
+            applyFilters(filteredWeeklyEntries, WeeklyHealthEntry::getBeginDate);
         });
     }
 
@@ -160,15 +188,15 @@ public class VitalsController implements Initializable {
 
             while (rs.next()) {
                 // Handle service date if null so no error when calling toLocalDate;
-                Date sqlDate = rs.getDate("date" );
+                Date sqlDate = rs.getDate("date");
                 LocalDate beginDate = (sqlDate != null) ? sqlDate.toLocalDate() : null;
 
                 DailyHealthEntry dhe = new DailyHealthEntry(
                         beginDate,
-                        rs.getInt("glucose" ),
+                        rs.getInt("glucose"),
                         rs.getString("meds"),
-                        rs.getInt("steps" ),
-                        rs.getDouble("weight" )
+                        rs.getInt("steps"),
+                        rs.getDouble("weight")
                 );
                 healthDailyEntries.add(dhe);
             }
@@ -180,6 +208,7 @@ public class VitalsController implements Initializable {
     //******************** Populating tableview (Daily View) **********//
     public void populateTableWithDailyHealthEntries() {
         vitalsTableView.setEditable(true);
+        vitalsTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
 
         populateDateColumn();
         populateWeightColumn();
@@ -481,9 +510,9 @@ public class VitalsController implements Initializable {
 
             private void commitIfValid() {
                 try {
-                    int value = Integer.parseInt(textField.getText());
-                    commitEdit(value);
-                } catch (NumberFormatException e) {
+                    Number number = numberFormat.parse(textField.getText());
+                    commitEdit(number.intValue());
+                } catch (Exception e) {
                     cancelEdit();
                 }
             }
@@ -553,17 +582,17 @@ public class VitalsController implements Initializable {
             Connection conn = dbh.getConnection();
 
             PreparedStatement pre = conn.prepareStatement(
-                    "UPDATE vitals SET "    +
+                    "UPDATE vitals SET " +
                             "glucose = ?, " +
-                            "meds = ?, "    +
-                            "steps = ?, "   +
-                            "weight = ? "   +
+                            "meds = ?, " +
+                            "steps = ?, " +
+                            "weight = ? " +
                             "WHERE date = ?"
             );
 
             // New updated values
             pre.setInt(1, entry.getGlucose());
-            pre.setString(2,entry.getMeds());
+            pre.setString(2, entry.getMeds());
             pre.setInt(3, entry.getSteps());
             pre.setDouble(4, entry.getWeight());
             pre.setDate(5, Date.valueOf(entry.getBeginDate()));
@@ -631,24 +660,24 @@ public class VitalsController implements Initializable {
             Connection conn = dbh.getConnection();
 
             pre = conn.prepareStatement(
-                    "SELECT "                                                                      +
+                    "SELECT " +
                             "DATE_SUB(DATE(`date`), INTERVAL WEEKDAY(`date`) DAY) AS week_start, " +
-                            "ROUND(AVG(glucose)) AS glucose_avg, "                                 +
-                            "ROUND(AVG(steps)) as steps_avg, "                                     +
-                            "AVG(weight) as weight_avg, "                                          +
-                            "SUM(CASE WHEN meds = 'Y' THEN 1 ELSE 0 END) as meds_cnt "             +
-                            "FROM vitals "                                                         +
-                            "GROUP BY week_start "                                                 +
+                            "ROUND(AVG(glucose)) AS glucose_avg, " +
+                            "ROUND(AVG(steps)) as steps_avg, " +
+                            "AVG(weight) as weight_avg, " +
+                            "SUM(CASE WHEN meds = 'Y' THEN 1 ELSE 0 END) as meds_cnt " +
+                            "FROM vitals " +
+                            "GROUP BY week_start " +
                             "ORDER BY week_start");
             rs = pre.executeQuery();
 
             while (rs.next()) {
                 WeeklyHealthEntry dhe = new WeeklyHealthEntry(
                         rs.getDate("week_start").toLocalDate(),
-                        rs.getInt("glucose_avg" ),
+                        rs.getInt("glucose_avg"),
                         rs.getInt("meds_cnt"),
-                        rs.getInt("steps_avg" ),
-                        rs.getDouble("weight_avg" )
+                        rs.getInt("steps_avg"),
+                        rs.getDouble("weight_avg")
                 );
                 healthWeeklyEntries.add(dhe);
             }
@@ -765,4 +794,35 @@ public class VitalsController implements Initializable {
         });
     }
 
+    //******************** Print functions **********//
+
+    public void printDailyTable() {
+        PrinterJob printerJob = PrinterJob.createPrinterJob();
+
+        if (printerJob != null) {
+            Stage stage = (Stage) vitalsTableView.getScene().getWindow();
+
+            if (printerJob.showPrintDialog(stage)) {
+                Printer printer = printerJob.getPrinter();
+                PageLayout pageLayout = printer.createPageLayout(
+                        Paper.NA_LETTER,
+                        PageOrientation.PORTRAIT,
+                        Printer.MarginType.DEFAULT
+                );
+
+                printerJob.getJobSettings().setPageLayout(pageLayout);
+
+                Scale scale = new Scale(0.6, 0.6);
+                vitalsTableView.getTransforms().add(scale);
+
+                boolean success = printerJob.printPage(vitalsTableView);
+
+                if (success) {
+                    printerJob.endJob();
+                }
+
+                vitalsTableView.getTransforms().remove(scale);
+            }
+        }
+    }
 }
