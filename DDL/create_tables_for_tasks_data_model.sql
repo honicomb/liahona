@@ -129,70 +129,36 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `tasks`.`status_hist`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `tasks`.`status_hist` ;
-
-CREATE TABLE IF NOT EXISTS `tasks`.`status_hist` (
-  `task_id` VARCHAR(7) CHARACTER SET 'utf8mb4' NOT NULL COMMENT 'Each task is assigned a unique ID',
-  `orig_start_dt` DATE NOT NULL COMMENT 'The date the task was originally planned to start',
-  `curr_start_dt` DATE NOT NULL COMMENT 'The current date the task is planned to start. May be the same as the original but if something is rescheduled then the current start date will be different than the original. I want to keep this field so I can track (over time) how close the original and current start dates are.',
-  `curr_due_dt` DATE NOT NULL COMMENT 'The date the task is scheduled to end',
-  `orig_due_dt` DATE NOT NULL COMMENT 'The date the task was originally planned to be completed',
-  `act_end_dt` DATE NULL COMMENT 'The date the task entered a terminal status (Completed, Deleted, Missed)',
-  PRIMARY KEY (`task_id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `tasks`.`task_daily`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `tasks`.`task_daily` ;
 
-CREATE TABLE IF NOT EXISTS `tasks`.`task_daily` (
-  `task_id` VARCHAR(7) CHARACTER SET 'utf8mb4' NOT NULL COMMENT 'Each task is assigned a unique ID',
-  `category_id` VARCHAR(3) CHARACTER SET 'utf8mb4' NOT NULL COMMENT 'Unique ID associated with a category',
-  `status_id` VARCHAR(2) CHARACTER SET 'utf8mb4' NOT NULL COMMENT 'ID associated with the status of the task',
-  `actual_min` INT NULL COMMENT 'Time in minutes the task actually took to complete',
-  `description` VARCHAR(200) CHARACTER SET 'utf8mb4' NOT NULL COMMENT 'Text about what the task is',
-  `est_min` INT NULL COMMENT 'Number of minutes estimated to complete the task',
-  `goal_id` VARCHAR(5) CHARACTER SET 'utf8mb4' NULL COMMENT 'If the task is linked to a certain goal, then this has the ID of the linked goal',
-  `milestone_id` VARCHAR(7) CHARACTER SET 'utf8mb4' NULL COMMENT 'If the task has an associated milestone then the this will be the milestone ID',
-  `notes` VARCHAR(1000) CHARACTER SET 'utf8mb4' NULL COMMENT 'Any notes associated with the task',
-  `order` INT NULL COMMENT 'This is the order of importance with the Priority. For example, if you had 4 \"A\" priorities, you would have an A1, A2, A3, and A4',
-  `priority` VARCHAR(2) CHARACTER SET 'utf8mb4' NULL COMMENT 'Priority of task. A, B, C, or D followed by a number. A indicates urgent and important, B is not urgent but is important, C is urgent but not important, and D is optional',
-  `recur_ind` VARCHAR(2) CHARACTER SET 'utf8mb4' NOT NULL COMMENT 'A Y/N indicator to denote if this task recurs on a regular basis',
-  PRIMARY KEY (`task_id`),
-  INDEX `goal_id_idx` (`goal_id` ASC) VISIBLE,
-  INDEX `milestone_id_idx` (`milestone_id` ASC) VISIBLE,
-  INDEX `status_id_idx` (`status_id` ASC) VISIBLE,
-  INDEX `category_id_idx` (`category_id` ASC) VISIBLE,
-  CONSTRAINT `fk_goal_id_task_daily`
-    FOREIGN KEY (`goal_id`)
-    REFERENCES `tasks`.`goal` (`goal_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_milestone_id_task_daily`
-    FOREIGN KEY (`milestone_id`)
-    REFERENCES `tasks`.`milestone` (`milestone_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_status_id_task_daily`
-    FOREIGN KEY (`status_id`)
-    REFERENCES `tasks`.`status_dim` (`status_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_category_id_task_daily`
-    FOREIGN KEY (`category_id`)
-    REFERENCES `tasks`.`category_dim` (`category_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_task_id_task_daily`
-    FOREIGN KEY (`task_id`)
-    REFERENCES `tasks`.`status_hist` (`task_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE `task_daily` (
+   `task_id` varchar(7) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Each task is assigned a unique ID',
+   `actual_end_dt` date NULL COMMENT 'The date the task entered a terminal status (Completed, Deleted, Missed)',
+   `category_id` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Unique ID associated with a category',
+   `status_id` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'ID associated with the status of the task',
+   `actual_min` int DEFAULT NULL COMMENT 'Time in minutes the task actually took to complete',
+   `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Text about what the task is',
+   `due_dt` date NOT NULL COMMENT 'The date the task was originally planned to be completed',
+   `est_min` int DEFAULT NULL COMMENT 'Number of minutes estimated to complete the task',
+   `goal_id` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'If the task is linked to a certain goal, then this has the ID of the linked goal',
+   `milestone_id` varchar(7) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'If the task has an associated milestone then this will be the milestone ID',
+   `notes` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Any notes associated with the task',
+   `order` int DEFAULT NULL COMMENT 'This is the order of importance with the Priority. For example, if you had 4 "A" priorities, you would have an A1, A2, A3, and A4',
+   `priority` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Priority of task. A, B, C, or D followed by a number. A indicates urgent and important, B is not urgent but is important, C is urgent but not important, and D is optional',
+   `recur_ind` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'A Y/N indicator to denote if this task recurs on a regular basis',
+   `start_dt` date NOT NULL COMMENT 'The date the task was originally planed to start',
+   PRIMARY KEY (`task_id`),
+   KEY `goal_id_idx` (`goal_id`),
+   KEY `milestone_id_idx` (`milestone_id`),
+   KEY `status_id_idx` (`status_id`),
+   KEY `categor_id_idx` (`category_id`),
+   CONSTRAINT `fk_category_id_task_daily` FOREIGN KEY (`category_id`) REFERENCES `category_dim` (`category_id`),
+   CONSTRAINT `fk_goal_id_task_daily` FOREIGN KEY (`goal_id`) REFERENCES `goal` (`goal_id`),
+   CONSTRAINT `fk_milestone_id_task_daily` FOREIGN KEY (`milestone_id`) REFERENCES `milestone` (`milestone_id`),
+   CONSTRAINT `fk_status_id_task_daily` FOREIGN KEY (`status_id`) REFERENCES `status_dim` (`status_id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
 
 -- -----------------------------------------------------
@@ -200,25 +166,17 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `tasks`.`task_mtl` ;
 
-CREATE TABLE IF NOT EXISTS `tasks`.`task_mtl` (
-  `task_id` VARCHAR(7) CHARACTER SET 'utf8mb4' NOT NULL COMMENT 'Each task is assigned a unique ID',
-  `category_id` VARCHAR(3) CHARACTER SET 'utf8mb4' NOT NULL COMMENT 'Unique ID associated with a category',
-  `description` VARCHAR(200) CHARACTER SET 'utf8mb4' NOT NULL COMMENT 'Text about what the task is',
-  `entered_dt` DATE NOT NULL COMMENT 'Date the master task went onto the list. If it was on the list before, was then changed to a daily task, and then re-assigned to the master task list, it will hold the date it was re-assigned',
-  `notes` VARCHAR(500) CHARACTER SET 'utf8mb4' NULL COMMENT 'Any notes associated with the task',
-  PRIMARY KEY (`task_id`),
-  INDEX `fk_category_id_idx` (`category_id` ASC) VISIBLE,
-  CONSTRAINT `fk_category_id_task_mtl`
-    FOREIGN KEY (`category_id`)
-    REFERENCES `tasks`.`category_dim` (`category_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_task_id_task_mtl`
-    FOREIGN KEY (`task_id`)
-    REFERENCES `tasks`.`status_hist` (`task_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE `task_mtl` (
+   `task_id` varchar(7) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Each task is assigned a unique ID',
+   `category_id` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Unique ID associated with a category',
+   `date_added` date NOT NULL COMMENT 'Date the master task went onto the list. If it was on the list before, was then changed to a daily task, and then re-assigned to the master task list, it will hold the date it was re-assigned',
+   `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Text about what the task is',
+   `entered_dt` date NOT NULL COMMENT 'Date the master task went onto the list. If it was on the list before, was then changed to a daily task, and then re-assigned to the master task list, it will hold the date it was re-assigned',
+   `notes` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Any notes associated with the task',
+   PRIMARY KEY (`task_id`),
+   KEY `fk_category_id_idx` (`category_id`),
+   CONSTRAINT `fk_category_id_task_mtl` FOREIGN KEY (`category_id`) REFERENCES `category_dim` (`category_id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
 
 -- -----------------------------------------------------
@@ -256,3 +214,4 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
