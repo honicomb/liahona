@@ -105,7 +105,7 @@ CREATE TABLE `weights_log` (
   `entry_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'A unique ID assigned to each entry in the table. This will be a sequential number that will auto-generate',
   `date` date NOT NULL COMMENT 'Date exercise activity was done.',
   `weights_exer_id` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Unique ID associated with a weight-lifting exercise',
-  `free_weight_flag` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Flag indicating if the movement was done with free weights or not. If no, it was done with a machine',
+  `weight_type` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Indicates if the exercise was done with free weights, dumbells, or a machine.',
   `notes` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Notes. Typically will note how weight felt and any recommendations for the next time I hit this body part',
   `rep_nbr` int NOT NULL COMMENT 'Number of repetitions performed in the set',
   `weight` int NOT NULL COMMENT 'Weight used for associated set and rep count',
