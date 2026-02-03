@@ -44,6 +44,7 @@ CREATE TABLE `goal` (
   `goal_desc` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Description of the goal. Goals should be specific, measurable, achievable, relevant, and time-bound',
   `goal_start_dt` date DEFAULT NULL,
   `short_desc` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Short description of the goal so it can be included in drop down lists',
+  `final_disp` varchar(20) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT 'Final disposition of the goal. If this field is blank, that means the goal is still opened.',
   PRIMARY KEY (`goal_id`),
   KEY `how_id_idx` (`how_id`) /*!80000 INVISIBLE */,
   KEY `value_id_idx` (`value_id`),
@@ -212,3 +213,4 @@ CREATE TABLE `value` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2026-01-26  7:18:57
+
