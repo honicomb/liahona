@@ -8,7 +8,7 @@ public class TasksDB {
 
     protected String dbUser = "root";
 
-    protected String dbPass = "Alma12:27!";
+    protected String dbPass = "";
 
     protected String dbName = "prod_tasks";
 }
